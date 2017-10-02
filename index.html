@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>classes in JSxxx</title>
+</head>
+<body>
+
+<script>
+console.log('start');
+
+class Foods {
+	constructor (name='defaultName', origin='defaultOrigin', rating=100) {
+		/*notice that the next 3 lines have 'this'
+		referring to the whichever new object is made*/
+		this.name = name;
+		this.origin = origin;
+		this.rating = rating;
+	}//close constructor definition
+
+	/*now here we get to add functions that will be inherited from 
+	our class to any new Foods object that we make.
+	in this case we have an increment function that raises the rating 
+	by 1.
+	*/
+	increment() {this.rating++}
+
+}//close class definition
+
+/*now we see it in action.
+remember that this is all syntactical sugar to hide 
+the fact that JS is actually implementing prototypal inheritance.
+I heard Crockford argue that this is a mistake and that it 
+lets Java programmers act like JS has classical inheritance, leaving them
+forever in ignorance to the prototypal chain. From my noob standpoint
+it just feels like less boilerplate code and is easier to write.
+
+so we create a new object. Notice that we could pass in 
+3 arguments if we wanted to define our object specifically
+example... let user1 = new Foods('durian', 'tropics' 300)
+*/
+let user1 = new Foods();
+//we run the function increment() which was automatically inherited
+user1.increment();
+//console table shows us that the user1 rating increased by 1. 
+console.table(user1);
+
+
+
+
+
+/*this way is perfectly fine, but.. the above way with 
+javascript classes gives you the same stuff with a lot less 
+boilerplate code.*/
+function player(name, score) {
+	let newPlayer = Object.create(playerFunctionStore);
+	newPlayer.name = name;
+	newPlayer.score = score;
+	return newPlayer;
+};
+
+let playerFunctionStore = {
+	increment: function() {this.score++; return this.score;},
+	login: function() {console.log('is here to stay');},
+}
+let player2 = player('tim', 5);
+let player1 = player('will', 3);
+player1.increment()
+console.table(player2)
+console.table(player1) //notice that the score increased by 1.
+
+</script>
+</body>
+</html>
